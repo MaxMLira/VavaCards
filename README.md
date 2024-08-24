@@ -21,7 +21,7 @@
  - Cartas de agentes terão atributos de atk/def.
  - Cartas ProPlayer darão buff para determinada role de agente.
  - Cartas Magia, tem regras que são ativadas em determinados eventos.
- - Cada turno o jogador podera apenas por uma carta (de qualquer tipo).
+ - Cada turno o jogador podera apenas por uma carta  carta do tipo agente e outra de um dos outros tipos.
  - Cada turno o jogador tera um tempo maximo de 20 segundos para fazer sua jogada.
  - O jogador que perder todos os pontos de vida perde.
  
