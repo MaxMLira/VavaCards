@@ -24,4 +24,7 @@
  - Cada turno o jogador podera apenas por uma carta  carta do tipo agente e outra de um dos outros tipos.
  - Cada turno o jogador tera um tempo maximo de 20 segundos para fazer sua jogada.
  - O jogador que perder todos os pontos de vida perde.
+ - Cada carta de agente tem tres variantes: uma com arma pistol, uma com arma de meia compra e uma com arma full.
+ - As cartas ProPlayers tem muita influencia na força geral da carta, pois tanto o tier do qual faz parte, tanto a função em que joga faz diferença no dano final.
+
  
