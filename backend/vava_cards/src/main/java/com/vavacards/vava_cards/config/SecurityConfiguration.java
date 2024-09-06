@@ -4,6 +4,7 @@ package com.vavacards.vava_cards.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -34,24 +35,16 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
-        http.authorizeHttpRequests(request -> {
+        http.authorizeHttpRequests(request ->
             request.requestMatchers(
-                    "/auth/**",
-                    "/auth/signup"
-            ).permitAll();
-            request.anyRequest().authenticated();
-        });
-        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.formLogin(fl -> fl.loginPage("/auth/login").usernameParameter("email").permitAll()
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/auth/login-error"));
-        http.logout(log -> log.logoutUrl("/auth/logout")
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID", "Idea-2e8e7cee")
-                .logoutSuccessUrl("/auth/login"));
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        http.authenticationProvider(authenticationProvider);
+                    "/auth/**"
+            ).permitAll().anyRequest().authenticated()
+        )
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .formLogin(Customizer.withDefaults())
+        .logout(Customizer.withDefaults())
+        .authenticationProvider(authenticationProvider)
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

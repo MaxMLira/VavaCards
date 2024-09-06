@@ -7,12 +7,14 @@ import com.vavacards.vava_cards.model.dto.RegisterDto;
 import com.vavacards.vava_cards.service.AuthenticationService;
 import com.vavacards.vava_cards.service.JwtService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
-@Controller("/auth")
+@RequestMapping("/auth")
+@RestController
 public class AuthenticationController {
 
     private final JwtService jwtService;
@@ -24,9 +26,9 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity.BodyBuilder register(@RequestBody RegisterDto registerDto) {
+    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
         authenticationService.signup(registerDto);
-        return ResponseEntity.ok();
+        return ResponseEntity.ok("User created");
     }
 
     @PostMapping("/login")
