@@ -7,6 +7,7 @@ import com.vavacards.vava_cards.model.dto.LoginDto;
 import com.vavacards.vava_cards.model.dto.RegisterDto;
 import com.vavacards.vava_cards.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,9 @@ public class AuthenticationService {
     }
 
     public User signup(RegisterDto input) {
+        if (userRepository.findByEmail(input.getEmail()).isPresent()){
+            throw  new BadCredentialsException("User already exists!");
+        }
         User user = new User();
         user.setEmail(input.getEmail());
         user.setFullName(input.getFullName());
